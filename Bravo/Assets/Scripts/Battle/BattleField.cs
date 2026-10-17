@@ -5,13 +5,13 @@ public class BattleField : MonoBehaviour
     [SerializeField] private Transform[] _mySidePositions;
     [SerializeField] private Transform[] _enemyPositions;
 
+#if UNITY_EDITOR
     private void Reset()
     {
         _mySidePositions = FindPositions("MySide");
         _enemyPositions = FindPositions("Enemies");
     }
 
-#if UNITY_EDITOR
     private Transform[] FindPositions(string sideName)
     {
         const int POSITION_COUNT = 12;
