@@ -1,4 +1,7 @@
-﻿namespace Noname.Battle
+﻿using Cysharp.Threading.Tasks;
+using Noname.Asset;
+
+namespace Noname.Battle
 {
     /// <summary>
     /// 전투 한 판의 준비, 진행, 정리를 담당한다.
@@ -7,5 +10,12 @@
     /// </summary>
     public sealed class BattleCaster
     {
+        /// <summary>
+        /// 전투 진입을 준비한다. 현재는 전투 씬 로드 단계까지 수행한다.
+        /// </summary>
+        public async UniTask StartBattleAsync()
+        {
+            await AssetManager.LoadSceneAsync(AssetAddresses.BATTLE_SCENE);
+        }
     }
 }
