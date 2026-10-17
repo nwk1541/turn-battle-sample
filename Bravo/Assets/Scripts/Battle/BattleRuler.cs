@@ -1,4 +1,4 @@
-﻿namespace TurnBattleSample
+﻿namespace Noname.Battle
 {
     /// <summary>
     /// 전투 상태와 규칙을 담당한다.

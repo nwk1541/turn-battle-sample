@@ -1,4 +1,4 @@
-﻿namespace TurnBattleSample
+﻿namespace Noname.Battle
 {
     /// <summary>
     /// 전투 결과에 따른 인게임 캐릭터 동작과 연출의 연결 규약.

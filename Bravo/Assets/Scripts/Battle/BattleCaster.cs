@@ -1,4 +1,4 @@
-﻿namespace TurnBattleSample
+﻿namespace Noname.Battle
 {
     /// <summary>
     /// 전투 한 판의 준비, 진행, 정리를 담당한다.
