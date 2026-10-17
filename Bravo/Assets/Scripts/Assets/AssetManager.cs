@@ -3,11 +3,12 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.SceneManagement;
 
 namespace Noname.Asset
 {
     /// <summary>
-    /// 프로젝트 공통 자산 로드, 프리팹 생성과 해제를 담당한다.
+    /// 프로젝트 공통 자산 및 씬 로드, 프리팹 생성과 해제를 담당한다.
     /// 모든 API는 Unity 메인 스레드에서 호출하며, 자산의 사용 기간은 호출자가 관리한다.
     /// </summary>
     public static class AssetManager
@@ -45,6 +46,25 @@ namespace Noname.Asset
         }
 
         /// <summary>
+        /// 프리팹을 생성하고 루트의 컴포넌트를 반환한다.
+        /// 컴포넌트가 없으면 인스턴스를 반환하고 예외를 전달한다.
+        /// 사용이 끝나면 반환된 컴포넌트의 gameObject를 ReleaseInstance에 전달한다.
+        /// </summary>
+        public static async UniTask<T> InstantiateAsync<T>(string address, Transform parent = null) where T : Component
+        {
+            var instance = await InstantiateAsync(address, parent);
+            var component = instance.GetComponent<T>();
+
+            if (component == null)
+            {
+                ReleaseInstance(instance);
+                throw new InvalidOperationException($"프리팹 루트에 {typeof(T).Name} 컴포넌트가 없습니다. 주소: {address}");
+            }
+
+            return component;
+        }
+
+        /// <summary>
         /// Addressables가 추적하는 인스턴스를 파괴하고 연결된 자산 참조를 반환한다.
         /// null, 이미 파괴한 객체 또는 추적되지 않는 객체는 false를 반환한다.
         /// 부모 객체나 씬을 제거하기 전에 이 API로 인스턴스를 반환해야 한다.
@@ -52,6 +72,19 @@ namespace Noname.Asset
         public static bool ReleaseInstance(GameObject instance)
         {
             return instance != null && Addressables.ReleaseInstance(instance);
+        }
+
+        /// <summary>
+        /// 기존 씬을 교체하고, 로드 및 활성화가 완료된 씬을 반환한다.
+        /// 기존 씬에서 생성한 Addressables 인스턴스는 호출 전에 반환해야 한다.
+        /// 성공한 씬 로드 핸들은 Addressables가 추적하며 씬 언로드 시 자동으로 해제한다.
+        /// </summary>
+        public static async UniTask<Scene> LoadSceneAsync(string address)
+        {
+            ValidateAddress(address);
+            var handle = Addressables.LoadSceneAsync(address);
+            await EnsureSucceededAsync(handle, address);
+            return handle.Result.Scene;
         }
 
         private static async UniTask EnsureSucceededAsync<T>(AsyncOperationHandle<T> handle, string address)
