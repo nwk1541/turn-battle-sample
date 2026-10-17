@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -16,7 +16,7 @@ namespace Noname.Asset
         /// 주소로 자산을 로드하고 해당 호출이 소유할 로드 결과를 반환한다.
         /// 실패하면 핸들을 해제한 뒤 원래 오류를 포함한 InvalidOperationException을 전달한다.
         /// </summary>
-        public static async Task<LoadedAsset<T>> LoadAssetAsync<T>(string address) where T : UnityEngine.Object
+        public static async UniTask<LoadedAsset<T>> LoadAssetAsync<T>(string address) where T : UnityEngine.Object
         {
             ValidateAddress(address);
             var handle = Addressables.LoadAssetAsync<T>(address);
@@ -36,10 +36,10 @@ namespace Noname.Asset
         /// 프리팹을 생성하고 인스턴스를 반환한다. 위치와 회전은 프리팹의 로컬 값을 사용한다.
         /// 생성된 인스턴스는 직접 Destroy하지 않고, 사용이 끝나면 ReleaseInstance로 반환한다.
         /// </summary>
-        public static async Task<GameObject> InstantiateAsync(string address, Transform parent = null)
+        public static async UniTask<GameObject> InstantiateAsync(string address, Transform parent = null)
         {
             ValidateAddress(address);
-            var handle = Addressables.InstantiateAsync(address, parent, instantiateInWorldSpace: false, trackHandle: true);
+            var handle = Addressables.InstantiateAsync(address, parent);
             await EnsureSucceededAsync(handle, address);
             return handle.Result;
         }
@@ -54,11 +54,12 @@ namespace Noname.Asset
             return instance != null && Addressables.ReleaseInstance(instance);
         }
 
-        private static async Task EnsureSucceededAsync<T>(AsyncOperationHandle<T> handle, string address)
+        private static async UniTask EnsureSucceededAsync<T>(AsyncOperationHandle<T> handle, string address)
         {
             // 이미 완료된 작업도 완료 이벤트를 기다려 Addressables의 내부 인스턴스 추적 등록을 보장한다.
-            var completion = new TaskCompletionSource<bool>();
-            handle.Completed += _ => completion.SetResult(true);
+            // 완료 소스는 await에서 결과를 소비한 뒤 풀로 반환된다.
+            var completion = AutoResetUniTaskCompletionSource.Create();
+            handle.Completed += _ => completion.TrySetResult();
             await completion.Task;
 
             if (handle.Status != AsyncOperationStatus.Succeeded)
