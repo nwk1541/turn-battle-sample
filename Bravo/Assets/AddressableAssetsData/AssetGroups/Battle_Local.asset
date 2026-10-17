@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Battle_Local
   m_GUID: 054989196a27735459cd8c49d40b42f4
   m_SerializeEntries:
+  - m_GUID: 99c9720ab356a0642a771bea13969a05
+    m_Address: battle/scene
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f60f69df9ddd67e4b9698794dc2cd324
     m_Address: battle/unit/cube
     m_ReadOnly: 0
