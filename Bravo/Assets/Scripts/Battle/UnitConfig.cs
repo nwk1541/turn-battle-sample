@@ -31,5 +31,10 @@ namespace Noname.Battle
         {
             return new UnitStats(_maxHealth, _defense, _attackPower, _criticalRate, _speed);
         }
+
+        public BattleUnitState CreateState(int id, BattleSide side, int slot)
+        {
+            return new BattleUnitState(id, side, slot, CreateStats(), _maxHealth, _attackType);
+        }
     }
 }
