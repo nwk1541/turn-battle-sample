@@ -9,10 +9,10 @@ namespace Noname.UI
 
         public override void Init()
         {
-            BindButton(_playButton, OnPlayClicked);
+            BindButton(_playButton, OnClickPlay);
         }
 
-        private void OnPlayClicked()
+        private void OnClickPlay()
         {
             // 기존 씬을 교체하기 전에 타이틀의 콜백과 인스턴스를 반환한다.
             Release();

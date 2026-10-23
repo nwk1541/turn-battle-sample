@@ -7,7 +7,9 @@
     public static class AssetAddresses
     {
         public const string TITLE_UI = "title/ui";
+        public const string RESULT_UI = "battle/ui/result";
         public const string BATTLE_SCENE = "battle/scene";
         public const string BATTLE_UNIT_CUBE = "battle/unit/cube";
+        public const string BATTLE_UNIT_CONFIG = "battle/config/unit";
     }
 }
