@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -18,7 +18,38 @@ MonoBehaviour:
   - m_GUID: 2a33f182b0028c1489cbd3a9fad1410c
     m_Address: battle/ui/result
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5e748d838393e8a4eb6562ae23e12d9f
+    m_Address: battle/prefab/spearman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 69c4d5f5b7757a24a880634372296290
+    m_Address: battle/prefab/swordsman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8076b88217448ec4f935690de4c43487
+    m_Address: battle/ui/hud
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8de199704306766438d23629b9cb28a8
+    m_Address: battle/prefab/cavalry
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90169347dbb03e740a7c2b006cc5a741
+    m_Address: battle/prefab/archer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 99c9720ab356a0642a771bea13969a05
     m_Address: battle/scene
@@ -27,12 +58,7 @@ MonoBehaviour:
     - default
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f1d1c9cf53e9480ba0200864849978f9
-    m_Address: battle/config/unit
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f60f69df9ddd67e4b9698794dc2cd324
-    m_Address: battle/unit/cube
+    m_Address: battle/so/unit
     m_ReadOnly: 0
     m_SerializedLabels:
     - default

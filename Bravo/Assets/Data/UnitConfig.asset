@@ -12,10 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5ea69382ced4b0b9c2cf471a73259a2, type: 3}
   m_Name: UnitConfig
   m_EditorClassIdentifier: Assembly-CSharp::Noname.Battle.UnitConfig
-  _unitType: 0
-  _attackType: 0
-  _maxHealth: 5
-  _defense: 1
-  _attackPower: 2
-  _criticalRate: 0.1
-  _speed: 1
+  _units:
+  - _unitType: 0
+    _attackType: 0
+    _prefabAddress: battle/prefab/swordsman
+    _maxHealth: 24
+    _defense: 3
+    _attackPower: 7
+    _criticalRate: 0.1
+    _speed: 3
+  - _unitType: 1
+    _attackType: 0
+    _prefabAddress: battle/prefab/spearman
+    _maxHealth: 22
+    _defense: 2
+    _attackPower: 8
+    _criticalRate: 0.15
+    _speed: 4
+  - _unitType: 2
+    _attackType: 0
+    _prefabAddress: battle/prefab/cavalry
+    _maxHealth: 28
+    _defense: 1
+    _attackPower: 9
+    _criticalRate: 0.08
+    _speed: 6
+  - _unitType: 3
+    _attackType: 1
+    _prefabAddress: battle/prefab/archer
+    _maxHealth: 16
+    _defense: 0
+    _attackPower: 8
+    _criticalRate: 0.2
+    _speed: 2
