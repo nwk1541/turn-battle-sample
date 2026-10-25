@@ -10,30 +10,13 @@ namespace Noname.Battle
     [CreateAssetMenu(fileName = "UnitConfig", menuName = "Noname/Battle/Unit Config")]
     public sealed class UnitConfig : ScriptableObject
     {
-        [SerializeField, Tooltip("병종별 기본 능력치와 프리팹 설정")] private UnitDefinition[] _units = Array.Empty<UnitDefinition>();
-
-        public IReadOnlyList<UnitDefinition> Units => _units;
-
-        public UnitDefinition Get(UnitType unitType)
-        {
-            foreach (var unit in _units)
-            {
-                if (unit.UnitType == unitType)
-                {
-                    return unit;
-                }
-            }
-
-            throw new ArgumentOutOfRangeException(nameof(unitType), unitType, "설정된 병종이 없습니다.");
-        }
-
         [Serializable]
         public sealed class UnitDefinition
         {
             [Header("유닛 분류")]
             [SerializeField, Tooltip("병종")] private UnitType _unitType = UnitType.Swordsman;
             [SerializeField, Tooltip("공격 유형")] private AttackType _attackType = AttackType.Front;
-            [SerializeField, Tooltip("이 병종에 사용할 프리팹의 Addressables 주소")] private string _prefabAddress;
+            [SerializeField, Tooltip("이 병종에 사용할 프리팹의 Addressables 주소")] private string _prefabAddress = null;
 
             [Header("기본 스탯")]
             [SerializeField, Min(1), Tooltip("최대 체력")] private int _maxHealth = 1;
@@ -45,6 +28,7 @@ namespace Noname.Battle
             public UnitType UnitType => _unitType;
             public AttackType AttackType => _attackType;
             public string PrefabAddress => _prefabAddress;
+
             public int MaxHealth => _maxHealth;
             public int Defense => _defense;
             public int AttackPower => _attackPower;
@@ -56,10 +40,28 @@ namespace Noname.Battle
                 return new UnitStats(_maxHealth, _defense, _attackPower, _criticalRate, _speed);
             }
 
+            /// <summary>설정을 복사해 최대 체력으로 시작하는 독립된 전투 상태를 만든다.</summary>
             public BattleUnitState CreateState(int id, BattleSide side, int slot)
             {
                 return new BattleUnitState(id, side, slot, CreateStats(), _maxHealth, _attackType, _unitType);
             }
+        }
+
+        [SerializeField, Tooltip("병종별 기본 능력치와 프리팹 설정")] private UnitDefinition[] _units = Array.Empty<UnitDefinition>();
+
+        public IReadOnlyList<UnitDefinition> Units => _units;
+
+        public UnitDefinition Get(UnitType unitType)
+        {
+            foreach (UnitDefinition unit in _units)
+            {
+                if (unit.UnitType == unitType)
+                {
+                    return unit;
+                }
+            }
+
+            throw new ArgumentOutOfRangeException(nameof(unitType), unitType, "설정된 병종이 없습니다.");
         }
     }
 }

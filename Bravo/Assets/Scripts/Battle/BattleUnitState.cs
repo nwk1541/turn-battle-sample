@@ -12,10 +12,12 @@ namespace Noname.Battle
         public int Slot { get; }
         public UnitStats Stats { get; }
         public AttackType AttackType { get; }
+        public UnitType UnitType { get; }
         public int CurrentHealth { get; }
+
         public bool IsDead => CurrentHealth <= 0;
 
-        public BattleUnitState(int id, BattleSide side, int slot, UnitStats stats, int currentHealth, AttackType attackType = AttackType.Front)
+        public BattleUnitState(int id, BattleSide side, int slot, UnitStats stats, int currentHealth, AttackType attackType = AttackType.Front, UnitType unitType = UnitType.Swordsman)
         {
             if (side != BattleSide.MySide && side != BattleSide.Enemies)
             {
@@ -43,6 +45,7 @@ namespace Noname.Battle
             Slot = slot;
             Stats = stats;
             AttackType = attackType;
+            UnitType = unitType;
             CurrentHealth = currentHealth;
         }
     }

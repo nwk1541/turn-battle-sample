@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class Bootstrap : MonoBehaviour
 {
-    // 진입점
+    #region MonoBehaviour
+
     private void Start()
     {
         LoadTitleUIAsync().Forget();
     }
+
+    #endregion
 
     private async UniTask LoadTitleUIAsync()
     {

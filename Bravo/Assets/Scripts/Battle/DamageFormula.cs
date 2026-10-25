@@ -28,10 +28,10 @@ namespace Noname.Battle
                 throw new ArgumentOutOfRangeException(nameof(criticalRoll));
             }
 
-            var isCritical = criticalRoll < attacker.Stats.CriticalRate;
-            var attackPower = attacker.Stats.AttackPower * (isCritical ? CRITICAL_MULTIPLIER : 1d);
-            var calculatedDamage = Math.Max(0d, Math.Floor(attackPower - target.Stats.Defense));
-            var damage = (int)Math.Min(target.CurrentHealth, calculatedDamage);
+            bool isCritical = criticalRoll < attacker.Stats.CriticalRate;
+            double attackPower = attacker.Stats.AttackPower * (isCritical ? CRITICAL_MULTIPLIER : 1d);
+            double calculatedDamage = Math.Max(0d, Math.Floor(attackPower - target.Stats.Defense));
+            int damage = (int)Math.Min(target.CurrentHealth, calculatedDamage);
 
             return new DamageDesc(attacker.Id, target.Id, damage, isCritical, target.CurrentHealth - damage);
         }

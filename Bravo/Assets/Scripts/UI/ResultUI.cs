@@ -6,15 +6,19 @@ namespace Noname.UI
 {
     public class ResultUI : UIBase
     {
-        [SerializeField] private TMP_Text _resultText;
-        [SerializeField] private UnityEngine.UI.Button _returnButton;
-        [SerializeField] private UnityEngine.UI.Button _backButton;
+        [SerializeField] private TMP_Text _resultText = null;
+        [SerializeField] private UnityEngine.UI.Button _returnButton = null;
+        [SerializeField] private UnityEngine.UI.Button _backButton = null;
+
+        #region Override
 
         public override void Init()
         {
             BindButton(_returnButton, OnClickReturn);
             BindButton(_backButton, OnClickBack);
         }
+
+        #endregion
 
         public void SetResult(BattleResult result)
         {

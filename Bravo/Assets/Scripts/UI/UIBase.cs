@@ -5,7 +5,7 @@ using UnityEngine.Events;
 namespace Noname.UI
 {
     /// <summary>
-    /// UIManager가 생성 시 Init, 반환 시 Release를 호출한다. 재활성화에는 Init을 호출하지 않는다.
+    /// UIManager가 최초 생성 시 Init, 스택에서 제거할 때 Release를 호출한다. Pop으로 재표시할 때는 초기화하지 않는다.
     /// </summary>
     public abstract class UIBase : MonoBehaviour
     {
@@ -13,15 +13,9 @@ namespace Noname.UI
 
         public abstract void Init();
 
-        protected void BindButton(UnityEngine.UI.Button button, UnityAction callback)
-        {
-            button.onClick.AddListener(callback);
-            _buttonBindings.Add((button, callback));
-        }
-
         public virtual void Release()
         {
-            foreach (var binding in _buttonBindings)
+            foreach ((UnityEngine.UI.Button Button, UnityAction Callback) binding in _buttonBindings)
             {
                 if (binding.Button != null)
                 {
@@ -30,6 +24,12 @@ namespace Noname.UI
             }
 
             _buttonBindings.Clear();
+        }
+
+        protected void BindButton(UnityEngine.UI.Button button, UnityAction callback)
+        {
+            button.onClick.AddListener(callback);
+            _buttonBindings.Add((button, callback));
         }
     }
 }

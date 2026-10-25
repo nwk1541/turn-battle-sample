@@ -10,6 +10,7 @@
         public int Damage { get; }
         public bool IsCritical { get; }
         public int TargetFinalHealth { get; }
+
         public bool IsTargetDead => TargetFinalHealth <= 0;
 
         public DamageDesc(int attackerId, int targetId, int damage, bool isCritical, int targetFinalHealth)

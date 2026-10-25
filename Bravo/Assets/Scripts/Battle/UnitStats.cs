@@ -3,7 +3,7 @@
 namespace Noname.Battle
 {
     /// <summary>
-    /// 설정 자산에서 복사한 전투용 능력치. 치명타율은 0~1 범위이다.
+    /// 전투가 사용하는 불변 능력치. 치명타율은 0~1 범위의 확률 값이다.
     /// </summary>
     public readonly struct UnitStats
     {
