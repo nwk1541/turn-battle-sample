@@ -1,10 +1,11 @@
-﻿namespace Noname.Battle
+﻿using System;
+using System.Collections;
+
+namespace Noname.Battle
 {
-    /// <summary>
-    /// 전투 결과에 따른 인게임 캐릭터 동작과 연출의 연결 규약.
-    /// 연출 호출과 완료 전달 방식은 후속 구현에서 정의한다.
-    /// </summary>
+    /// <summary>타격 시 표현 콜백을 호출하고 원위치 복귀까지 기다린다.</summary>
     public interface IBattleMotionHandle
     {
+        IEnumerator PlayAction(DamageDesc damage, Action onHit);
     }
 }

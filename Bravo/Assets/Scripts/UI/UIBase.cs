@@ -1,22 +1,19 @@
 ﻿using System.Collections.Generic;
-using Noname.Asset;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
 
 namespace Noname.UI
 {
     /// <summary>
-    /// AssetManager로 생성한 UI의 버튼 콜백과 인스턴스 반환을 관리한다.
-    /// 생성 후 Init을 한 번 호출하고, UI 종료 시 씬을 교체하기 전에 Release를 호출한다.
+    /// UIManager가 생성 시 Init, 반환 시 Release를 호출한다. 재활성화에는 Init을 호출하지 않는다.
     /// </summary>
     public abstract class UIBase : MonoBehaviour
     {
-        private readonly List<(Button Button, UnityAction Callback)> _buttonBindings = new List<(Button, UnityAction)>();
+        private readonly List<(UnityEngine.UI.Button Button, UnityAction Callback)> _buttonBindings = new List<(UnityEngine.UI.Button, UnityAction)>();
 
         public abstract void Init();
 
-        protected void BindButton(Button button, UnityAction callback)
+        protected void BindButton(UnityEngine.UI.Button button, UnityAction callback)
         {
             button.onClick.AddListener(callback);
             _buttonBindings.Add((button, callback));
@@ -33,7 +30,6 @@ namespace Noname.UI
             }
 
             _buttonBindings.Clear();
-            AssetManager.ReleaseInstance(gameObject);
         }
     }
 }

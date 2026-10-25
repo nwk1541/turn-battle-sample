@@ -16,8 +16,7 @@ namespace Noname.UI
         public int Count => _history.Count;
         public UIBase Current => _history.Count > 0 ? _history.Peek() : null;
 
-        [UnityEngine.Scripting.Preserve]
-        private UIManager()
+        public UIManager()
         {
         }
 

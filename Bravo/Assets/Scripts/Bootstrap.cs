@@ -13,7 +13,7 @@ public class Bootstrap : MonoBehaviour
 
     private async UniTask LoadTitleUIAsync()
     {
-        var titleUI = await AssetManager.InstantiateAsync<TitleUI>(AssetAddresses.TITLE_UI);
-        titleUI.Init();
+        UIManager.Instance.ClearHistory();
+        await UIManager.Instance.PushAsync<TitleUI>(AssetAddresses.TITLE_UI, Application.exitCancellationToken);
     }
 }

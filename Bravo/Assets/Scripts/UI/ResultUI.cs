@@ -8,10 +8,12 @@ namespace Noname.UI
     {
         [SerializeField] private TMP_Text _resultText;
         [SerializeField] private UnityEngine.UI.Button _returnButton;
+        [SerializeField] private UnityEngine.UI.Button _backButton;
 
         public override void Init()
         {
             BindButton(_returnButton, OnClickReturn);
+            BindButton(_backButton, OnClickBack);
         }
 
         public void SetResult(BattleResult result)
@@ -21,8 +23,12 @@ namespace Noname.UI
 
         private void OnClickReturn()
         {
-            _returnButton.interactable = false;
             BattleManager.Instance.ReturnToTitle();
+        }
+
+        private void OnClickBack()
+        {
+            UIManager.Instance.Pop();
         }
     }
 }
